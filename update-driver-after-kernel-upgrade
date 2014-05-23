@@ -1,0 +1,29 @@
+#!/bin/bash
+cd "$dirname $0" #move to the directory where this file is located
+echo "This will recompile the RT28XX/RT539X Wireless Network driver for your current Linux kernel."
+echo "You only need to do this after upgrading the kernel."
+echo "If your wireless stopped working after restarting after installing an Ubuntu update, that's probably what you did."
+echo "Ironically you need an internet connection to do this, as we have to download the headers matching your current kernel."
+echo "So make sure you're connected via a LAN cable while executing this script."
+echo "If you've made any manual changes to the code in `$dirname $0` you will want to abort this now, as any changes will be wiped."
+echo "Unless you're a developer, don't worry about the above."
+echo "Best of luck, and hopefully the Open Source driver will work properly soon, so we can avoid this nonsense!"
+echo "- Ronny Ager-Wick"
+echo
+echo "Note: This script is untested. I will remove this note when the next Ubuntu kernel update has been installed so I can test it myself."
+echo "If you do NOT want to continue, press Ctrl-C now."
+read -n1 -r -p "Press any key to continue..." key
+sudo apt-get update
+sudo apt-get install git linux-headers-$(uname -r) build-essential dkms fakeroot
+git checkout master
+git reset --hard # remove any changes to existing files
+git clean -f     # remove any new files
+git pull origin master # https://github.com/agerwick/RT28XX-RT539X-Linux-driver
+sudo make
+sudo make install
+echo
+echo "If there are any errors above, this will not work. Warning are fine."
+echo
+sudo modprobe -v rt5390sta
+echo
+echo "Your wireless network adapter should now be working. If not, try restarting."
