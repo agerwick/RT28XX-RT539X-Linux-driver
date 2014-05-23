@@ -39,8 +39,8 @@
 /*extern int rt28xx_close(IN struct net_device *net_dev); */
 /*extern int rt28xx_open(struct net_device *net_dev); */
 
-static VOID __devexit rt2860_remove_one(struct pci_dev *pci_dev);
-static INT __devinit rt2860_probe(struct pci_dev *pci_dev, const struct pci_device_id  *ent);
+static VOID  rt2860_remove_one(struct pci_dev *pci_dev);
+static INT  rt2860_probe(struct pci_dev *pci_dev, const struct pci_device_id  *ent);
 static void __exit rt2860_cleanup_module(void);
 static int __init rt2860_init_module(void);
 
@@ -59,7 +59,7 @@ static int rt2860_resume(struct pci_dev *pci_dev);
 /* */
 /* Ralink PCI device table, include all supported chipsets */
 /* */
-static struct pci_device_id rt2860_pci_tbl[] __devinitdata =
+static struct pci_device_id rt2860_pci_tbl[] =
 {
 #ifdef RT3090
 	{PCI_DEVICE(NIC_PCI_VENDOR_ID, NIC3090_PCIe_DEVICE_ID)},
@@ -99,9 +99,9 @@ static struct pci_driver rt2860_driver =
     id_table:   rt2860_pci_tbl,
     probe:      rt2860_probe,
 #if LINUX_VERSION_CODE >= 0x20412
-    remove:     __devexit_p(rt2860_remove_one),
+    remove:     rt2860_remove_one,
 #else
-    remove:     __devexit(rt2860_remove_one),
+    remove:    rt2860_remove_one,
 #endif
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,5,0)
@@ -303,7 +303,7 @@ module_exit(rt2860_cleanup_module);
 /* */
 /* PCI device probe & initialization function */
 /* */
-static INT __devinit   rt2860_probe(
+static INT   rt2860_probe(
     IN  struct pci_dev              *pci_dev, 
     IN  const struct pci_device_id  *pci_id)
 {
@@ -474,7 +474,7 @@ err_out:
 }
 
 
-static VOID __devexit rt2860_remove_one(
+static VOID rt2860_remove_one(
     IN  struct pci_dev  *pci_dev)
 {
 	PNET_DEV	net_dev = pci_get_drvdata(pci_dev);
