@@ -1,12 +1,16 @@
 #!/bin/bash
 cd "$dirname $0" #move to the directory where this file is located
 echo "This will recompile the RT28XX/RT539X Wireless Network driver for your current Linux kernel."
-echo "You only need to do this after upgrading the kernel."
+echo "You need to do this after upgrading the kernel and restarting the computer."
 echo "If your wireless stopped working after restarting after installing an Ubuntu update, that's probably what you did."
-echo "Ironically you need an internet connection to do this, as we have to download the headers matching your current kernel."
-echo "So make sure you're connected via a LAN cable while executing this script."
+echo "Conversely, if your wireless is still working, you probably haven't restarted yet. If that's the case, you should not run this now."
+echo "Basically, DON'T RUN THIS IF YOUR WIRELESS NETWORK ADAPTER IS STILL WORKING!"
+echo
+echo "Ironically you need an internet connection to continue, as we have to download the headers matching your current kernel."
+echo "Make sure you're connected to the Internet (via a LAN cable, for example) while executing this script."
+echo
 echo "If you've made any manual changes to the code in `$dirname $0` you will want to abort this now, as any changes will be wiped."
-echo "Unless you're a developer, don't worry about the above."
+echo "Unless you're modified the Makefile or modified the code in any other way, don't worry about the above warning."
 echo "Best of luck, and hopefully the Open Source driver will work properly soon, so we can avoid this nonsense!"
 echo "- Ronny Ager-Wick"
 echo
@@ -15,9 +19,10 @@ echo "If you do NOT want to continue, press Ctrl-C now."
 read -n1 -r -p "Press any key to continue..." key
 sudo apt-get update
 sudo apt-get install git linux-headers-$(uname -r) build-essential dkms fakeroot
+sudo apt-get purge $(dpkg -l linux-headers-"[0-9]*" | awk '/ii/{print $2}' | grep -ve "$(uname -r | sed -r 's/-[a-z]+//')") # remove all non-current headers
 git checkout master
-git reset --hard # remove any changes to existing files
-git clean -f     # remove any new files
+git reset --hard       # remove any changes to existing files
+git clean -f           # remove any new files
 git pull origin master # https://github.com/agerwick/RT28XX-RT539X-Linux-driver
 sudo make
 sudo make install

@@ -39,6 +39,7 @@ Now restart the computer, or alternatively:
 
 How to update the driver after a Linux kernel upgrade
 -----------------------------------------------------
-To update the driver (or "recompile it for your current kernel", to be exact), run the shellscript included here, named "update-driver-after-kernel-upgrade"
+To update the driver (or "recompile it for your current kernel", to be exact), run the shellscript included here, named "update-driver-after-kernel-upgrade".
+
 If you were in your home directory (that's the default when you open a terminal) when you issued the "git clone" command above, then you can enter the following code in your terminal:
 - ~/RT28XX-RT539X-Linux-driver/update-driver-after-kernel-upgrade
