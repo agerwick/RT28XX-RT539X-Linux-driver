@@ -16,7 +16,7 @@ echo "If you do NOT want to continue, press Ctrl-C now."
 read -n1 -r -p "Press any key to continue..." key
 echo
 sudo apt-get -y install git linux-headers-$(uname -r) build-essential dkms fakeroot
-if [ $? -eq 0 ] // kernel and requirements installed.
+if [ $? -eq 0 ]; then // kernel and requirements installed.
   sudo apt-get -y purge $(dpkg -l linux-headers-"[0-9]*" | awk '/ii/{print $2}' | grep -ve "$(uname -r | sed -r 's/-[a-z]+//')") # remove all non-current headers
   git checkout master
   git reset --hard       # remove any changes to existing files
