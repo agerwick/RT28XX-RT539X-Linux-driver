@@ -1,5 +1,6 @@
 #!/bin/bash
 cd "$(dirname $0)" #move to the directory where this file is located
+echo
 echo "This will recompile the RT28XX/RT539X Wireless Network driver for your current Linux kernel."
 echo "You need to do this after upgrading the kernel and restarting the computer."
 echo "If your wireless stopped working after restarting after installing an Ubuntu update, that's probably what you did."
@@ -7,7 +8,7 @@ echo "Conversely, if your wireless is still working, you probably haven't restar
 echo "Basically, DON'T RUN THIS IF YOUR WIRELESS NETWORK ADAPTER IS STILL WORKING!"
 echo
 echo "If you've made any manual changes to the code in $(dirname $0) you will want to abort this now, as any changes will be wiped."
-echo "Unless you're modified the Makefile or modified the code in any other way, don't worry about the above warning."
+echo "Unless you've modified the Makefile or modified the code in any other way, don't worry about the above warning."
 echo "Best of luck, and hopefully the Open Source driver will work properly soon, so we can avoid this nonsense!"
 echo "- Ronny Ager-Wick"
 echo
