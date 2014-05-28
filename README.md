@@ -8,7 +8,7 @@ How to install
 --------------
 
 - sudo apt-get update
-- sudo apt-get install git linux-headers-$(uname -r) build-essential dkms fakeroot
+- sudo apt-get install git linux-headers-generic linux-headers-$(uname -r) build-essential dkms fakeroot
 - git clone https://github.com/agerwick/RT28XX-RT539X-Linux-driver
 - cd RT28XX-RT539X-Linux-driver
 - sudo make

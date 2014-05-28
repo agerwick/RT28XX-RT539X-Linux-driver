@@ -28,8 +28,8 @@ if [ $? -eq 0 ] // kernel and requirements installed.
   echo
   sudo modprobe -v rt5390sta
   echo
-  echo "Your wireless network adapter should now be working. If not, try restarting."
+  echo "Your wireless network adapter should start working in a few seconds. If not, try restarting."
 else
   echo "Some of the requirements are not installed. We need an internet connection in order to download them."
-  echo "Please connect the laptop using a LAN cable."
+  echo "Please connect the laptop using a LAN cable and try again."
 fi
